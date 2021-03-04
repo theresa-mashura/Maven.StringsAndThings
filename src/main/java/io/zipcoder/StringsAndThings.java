@@ -15,7 +15,22 @@ public class StringsAndThings {
      *           countYZ("day fyyyz"); // Should return 2
      */
     public Integer countYZ(String input){
-        return null;
+
+        String lowerCaseInput = input.toLowerCase();
+        int count = 0;
+
+        for (int i = 0; i < input.length(); i++) {
+            if ( lowerCaseInput.charAt(i) == 'y' || lowerCaseInput.charAt(i) == 'z' )
+            {
+                if (i < input.length() - 1 && !Character.isLetter( lowerCaseInput.charAt(i + 1) ) ) {
+                    count++;
+                } else if (i == input.length() - 1) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
     }
 
     /**
@@ -28,7 +43,31 @@ public class StringsAndThings {
      *           removeString("Hello there", "x") // Should return "Hello there"
      */
     public String removeString(String base, String remove){
-        return null;
+
+        int bLength = base.length();
+        int rLength = remove.length();
+        char[] charArray = base.toCharArray();
+        int j = 0;
+
+        // Loop through the base string one character at at time
+        for (int i = 0; i < bLength; i++) {
+
+            // i < bLength - rLength make sure we don't get ArrayOutOfBounds
+            // base.substring(i, rLength) == remove test if remove string is present
+            if (i < bLength - rLength + 1 && base.substring(i, i + rLength).equals(remove) ) {
+                i += rLength - 1;
+
+            // if the string is not present then add the char at i to the charArray
+            } else {
+                charArray[j] = base.charAt(i);
+                j++;
+            }
+        }
+
+        String str = String.valueOf(charArray);
+        String returnStr = str.substring(0, j); // Only keep thru j - stuff after that is from original string
+
+        return returnStr;
     }
 
     /**
@@ -40,7 +79,25 @@ public class StringsAndThings {
      *           containsEqualNumberOfIsAndNot("noisxxnotyynotxisi") // Should return true
      */
     public Boolean containsEqualNumberOfIsAndNot(String input){
-        return null;
+
+        int countNot = 0;
+        int countIs = 0;
+
+        for (int i = 0; i < input.length(); i++) {
+
+            // check not out of bounds then check if substring = "not"
+            if (i < input.length() - 2 && input.substring(i, i + 3).equals("not")) {
+                countNot++;
+                i += 2;
+
+            // check not out of bounds then check if substring = "is"
+            } else if (i < input.length() - 1 && input.substring(i, i + 2).equals("is")) {
+                countIs++;
+                i += 1;
+            }
+        }
+
+        return countNot == countIs;
     }
 
     /**
@@ -51,7 +108,29 @@ public class StringsAndThings {
      *           gHappy("xxggyygxx") // Should return  false
      */
     public Boolean gIsHappy(String input){
-        return null;
+        boolean happy = true;
+
+        for (int i = 0; i < input.length(); i++) {
+
+            if (input.length() == 1 && input.charAt(i) == 'g') {
+                happy = false;
+                break;
+            }
+            else if (i < input.length() - 1
+                    && input.charAt(i) == 'g'
+                    && input.charAt(i + 1) != 'g'
+                    && input.charAt(i - 1) != 'g')
+            {
+                happy = false;
+                break;
+            } else if (i == input.length() - 1
+                    && input.charAt(i) == 'g'
+                    && input.charAt(i - 1) != 'g') {
+                happy = false;
+                break;
+            }
+        }
+        return happy;
     }
 
 
@@ -63,6 +142,19 @@ public class StringsAndThings {
      *            countTriple("a") // Should return 0
      */
     public Integer countTriple(String input){
-        return null;
+
+        int count = 0;
+
+        for (int i = 0; i < input.length(); i++) {
+
+            if (i < input.length() - 2
+                    && input.charAt(i + 1) == input.charAt(i)
+                    && input.charAt(i + 2) == input.charAt(i)
+            ) {
+                count += 1;
+            }
+
+        }
+        return count;
     }
 }
